@@ -25,7 +25,9 @@
   },
   "homepage": "https://github.com/actions/javascript-action#readme",
   "dependencies": {
-    "@actions/core": "^1.2.5"
+    "@actions/core": "^1.8.2",
+    "@actions/github": "^5.0.3",
+    "fetch-mock": "^9.11.0"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.31.1",
