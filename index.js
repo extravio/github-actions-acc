@@ -1,28 +1,27 @@
-const github = require('@actions/github');
-const core = require('@actions/core');
+import * as core from '@actions/core';
+import * as github from '@actions/github';
 
-async function run() {
-    // try {
-        // const myToken = core.getInput('repo_token');
-        // const adoRepo = core.getInput('ado_repo_name');
-
-        // const octokit = github.getOctokit(myToken);
-
+export default async function run() {
+    try {
         const myToken = core.getInput('repo_token');
+        const token = (myToken) ? myToken : "token";
+        console.log(token);
 
-        const octokit = github.getOctokit(myToken);
-        console.log(octokit);
 
-        // const { data: repos } = await octokit.repos.listForAuthenticatedUser();
+        // const client = github.GitHub(myToken);
+        // const { data: repos } = await client.repos.listForAuthenticatedUser();
+
+
+        const octokit = github.getOctokit(token);
         const { data: repos } = await octokit.rest.repos.listForAuthenticatedUser();
         
         console.log(repos);
-                   
-    // }
-    //     catch (error) {
-    //     core.setFailed(error.message);
-    //     throw error;
-    // }
+        return repos;
+    }
+    catch (error) {
+        core.setFailed(error.message);
+        throw error;
+    }
 }
 
 run();
