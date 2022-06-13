@@ -4,15 +4,8 @@ import * as github from '@actions/github';
 export default async function run() {
     try {
         const myToken = core.getInput('repo_token');
-        const token = (myToken) ? myToken : "token";
-        console.log(token);
 
-
-        // const client = github.GitHub(myToken);
-        // const { data: repos } = await client.repos.listForAuthenticatedUser();
-
-
-        const octokit = github.getOctokit(token);
+        const octokit = github.getOctokit(myToken);
         const { data: repos } = await octokit.rest.repos.listForAuthenticatedUser();
         
         console.log(repos);

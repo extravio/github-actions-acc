@@ -8889,15 +8889,8 @@ var __webpack_exports__ = {};
 async function run() {
     try {
         const myToken = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('repo_token');
-        const token = (myToken) ? myToken : "token";
-        console.log(token);
 
-
-        // const client = github.GitHub(myToken);
-        // const { data: repos } = await client.repos.listForAuthenticatedUser();
-
-
-        const octokit = _actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit(token);
+        const octokit = _actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit(myToken);
         const { data: repos } = await octokit.rest.repos.listForAuthenticatedUser();
         
         console.log(repos);

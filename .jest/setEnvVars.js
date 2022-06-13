@@ -1,0 +1,1 @@
+process.env.INPUT_REPO_TOKEN = 'token'

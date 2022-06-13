@@ -3,14 +3,10 @@ import action from './index.js';
 import { listPublicRepositories } from './fixtures/list-public-repositories';
 
 describe('action test suite', () => {
-  beforeAll(() => {
-    const repoToken = 'token';
-    process.env['INPUT_REPO_TOKEN'] = repoToken;
-  });
-
 
   it('It returns a list of public repositories', async () => {
 
+    // token is defined in "./.jest/setEnvVars.js"
     nock('https://api.github.com')
       .persist()
       .get('/user/repos')
