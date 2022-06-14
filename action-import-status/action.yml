@@ -1,0 +1,18 @@
+name: 'Get import status'
+description: 'Get the status of an import'
+inputs:
+  repo_token:  # id of input
+    description: 'Github Token'
+    required: true
+  owner:  # id of input
+    description: 'Github user or Organisation'
+    required: true
+  repo:  # id of input
+    description: 'Github repo name'
+    required: true
+outputs:
+  status: # id of output
+    description: 'The status of the migration'
+runs:
+  using: 'node16'
+  main: '../dist/get-import-status/index.js'

@@ -1,0 +1,23 @@
+on: 
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - 'develop'
+
+# on: [push]
+
+jobs:
+  source_migrate:
+    runs-on: ubuntu-latest
+    name: ADO repo import
+    steps:
+      - name: Get import status
+        id: import
+        uses: extravio/github-actions-acc/action-import-status@develop
+        with:
+          repo_token: ${{ secrets.JS_TOKEN }}
+          owner: extravio
+          repo: import-ado
+      # Use the output from the `import` step
+      - name: Get the status
+        run: echo "The status of the import is ${{ steps.import.outputs.status }}"

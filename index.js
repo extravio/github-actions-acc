@@ -26,6 +26,7 @@ export default async function run() {
         
         const octokit = github.getOctokit(myToken);
         // const { data: repos } = await octokit.rest.repos.listForAuthenticatedUser();
+        // start import
         const { data: migration } = await octokit.rest.migrations.startImport({
             owner,
             repo,
@@ -35,9 +36,14 @@ export default async function run() {
             vcs_password
           });
 
+          // const { data: migration } = await octokit.rest.migrations.getImportStatus({
+          //   owner,
+          //   repo
+          // });
+
         
         core.setOutput('status', 'ok');
-        console.log(migration);
+        // console.log(migration);
         return migration;
     }
     catch (error) {

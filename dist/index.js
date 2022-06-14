@@ -8862,6 +8862,7 @@ async function run() {
         
         const octokit = _actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit(myToken);
         // const { data: repos } = await octokit.rest.repos.listForAuthenticatedUser();
+        // start import
         const { data: migration } = await octokit.rest.migrations.startImport({
             owner,
             repo,
@@ -8871,9 +8872,14 @@ async function run() {
             vcs_password
           });
 
+          // const { data: migration } = await octokit.rest.migrations.getImportStatus({
+          //   owner,
+          //   repo
+          // });
+
         
         _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput('status', 'ok');
-        console.log(migration);
+        // console.log(migration);
         return migration;
     }
     catch (error) {
