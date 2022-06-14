@@ -1,30 +1,28 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'Import ADO repo'
+description: 'Import a repository from ADO'
 inputs:
   repo_token:  # id of input
     description: 'Github Token'
     required: true
-  ado_repo_name:  # id of input
+  owner:  # id of input
+    description: 'Github user or Organisation'
+    required: true
+  repo:  # id of input
+    description: 'Github repo name'
+    required: true
+  ado_repo:  # id of input
     description: 'The ADO repo to migrate'
     required: true
-    default: 'https://accapplications@dev.azure.com/accapplications/tohutohu/_git/playground-mikael'
+    default: 'https://accapplications@dev.azure.com/accapplications/tohutohu/_git/github-integration-tool'
+  ado_user:  # id of input
+    description: 'ADO user'
+    required: true
+  ado_pat:  # id of input
+    description: 'ADO PAT'
+    required: true
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  status: # id of output
+    description: 'The status of the migration'
 runs:
   using: 'node16'
   main: 'dist/index.js'
-
-# name: 'Wait'
-# description: 'Wait a designated number of milliseconds'
-# inputs:
-#   milliseconds:  # id of input
-#     description: 'number of milliseconds to wait'
-#     required: true
-#     default: '1000'
-# outputs:
-#   time: # output will be available to future steps
-#     description: 'The current time after waiting'
-# runs:
-#   using: 'node16'
-#   main: 'dist/index.js'

@@ -4,12 +4,41 @@ import * as github from '@actions/github';
 export default async function run() {
     try {
         const myToken = core.getInput('repo_token');
+        // github repo
+        const owner = core.getInput('owner');
+        const repo = core.getInput('repo');
+        // ado repo
+        const vcs_url = core.getInput('ado_repo');
+        const vcs = 'git'
+        const vcs_username	= core.getInput('ado_user');
+        const vcs_password = core.getInput('ado_pat');
 
-        const octokit = github.getOctokit(myToken);
-        const { data: repos } = await octokit.rest.repos.listForAuthenticatedUser();
+
+        const payload = {
+            owner,
+            repo,
+            vcs_url,
+            vcs,
+            vcs_username,
+            vcs_password
+          }
+          console.log(payload);
         
-        console.log(repos);
-        return repos;
+        const octokit = github.getOctokit(myToken);
+        // const { data: repos } = await octokit.rest.repos.listForAuthenticatedUser();
+        const { data: migration } = await octokit.rest.migrations.startImport({
+            owner,
+            repo,
+            vcs_url,
+            vcs,
+            vcs_username,
+            vcs_password
+          });
+
+        
+        core.setOutput('status', 'ok');
+        console.log(migration);
+        return migration;
     }
     catch (error) {
         core.setFailed(error.message);

@@ -8889,12 +8889,41 @@ var __webpack_exports__ = {};
 async function run() {
     try {
         const myToken = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('repo_token');
+        // github repo
+        const owner = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('owner');
+        const repo = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('repo');
+        // ado repo
+        const vcs_url = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('ado_repo');
+        const vcs = 'git'
+        const vcs_username	= _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('ado_user');
+        const vcs_password = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('ado_pat');
 
-        const octokit = _actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit(myToken);
-        const { data: repos } = await octokit.rest.repos.listForAuthenticatedUser();
+
+        const payload = {
+            owner,
+            repo,
+            vcs_url,
+            vcs,
+            vcs_username,
+            vcs_password
+          }
+          console.log(payload);
         
-        console.log(repos);
-        return repos;
+        const octokit = _actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit(myToken);
+        // const { data: repos } = await octokit.rest.repos.listForAuthenticatedUser();
+        const { data: migration } = await octokit.rest.migrations.startImport({
+            owner,
+            repo,
+            vcs_url,
+            vcs,
+            vcs_username,
+            vcs_password
+          });
+
+        
+        _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput('status', 'ok');
+        console.log(migration);
+        return migration;
     }
     catch (error) {
         _actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed(error.message);

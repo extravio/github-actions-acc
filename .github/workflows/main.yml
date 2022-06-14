@@ -1,16 +1,20 @@
 on: [push]
 
 jobs:
-  hello_world_job:
+  source_migrate:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: ADO repo import
     steps:
-      - name: Hello world action step
-        id: hello
-        uses: extravio/github-actions-acc@0.2
+      - name: Import repo step
+        id: import
+        uses: extravio/github-actions-acc@develop
         with:
-          # ado_repo_name: 'TBC'
           repo_token: ${{ secrets.JS_TOKEN }}
-      # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"
+          owner: extravio
+          repo: import-ado
+          ado_repo: 'https://accapplications@dev.azure.com/accapplications/tohutohu/_git/github-integration-tool'
+          ado_user: 'mikael.mrozik@acc.co.nz'
+          ado_pat:  ${{ secrets.ADO_PAT }}
+      # Use the output from the `import` step
+      - name: Get the status
+        run: echo "The status has started. The status is ${{ steps.import.outputs.status }}"

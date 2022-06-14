@@ -30,3 +30,8 @@ for an example of how to mock the Octokit client with nock.
 [REST API Documentation](https://docs.github.com/en/github-ae@latest/rest)
 
 [octokit/rest.js](https://octokit.github.io/rest.js/v18)
+
+## Todo
+
+- Handle PR / Maintain code
+- Multiple actions in 1 repo. See (codeql-action)[https://github.com/github/codeql-action] for an example

@@ -37,6 +37,8 @@
   },
   "jest": {
     "verbose": true,
-    "setupFiles": ["./.jest/setEnvVars.js"]
+    "setupFiles": [
+      "./.jest/setEnvVars.js"
+    ]
   }
 }
