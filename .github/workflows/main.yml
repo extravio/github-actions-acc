@@ -1,4 +1,7 @@
-on: [push]
+on: 
+  workflow_dispatch:
+
+# on: [push]
 
 jobs:
   source_migrate:

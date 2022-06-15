@@ -1,0 +1,23 @@
+on: 
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - 'develop'
+
+# on: [push]
+
+jobs:
+  source_migrate:
+    runs-on: ubuntu-latest
+    name: repos delete
+    steps:
+      - name: Delete repo
+        id: delete
+        uses: extravio/github-actions-acc/action-repos-delete@develop
+        with:
+          repo_token: ${{ secrets.JS_TOKEN }}
+          owner: extravio
+          repo: import-ado
+      # Use the output from the `import` step
+      - name: Get the status
+        run: echo "The reponse code is ${{ steps.import.outputs.status }}"
