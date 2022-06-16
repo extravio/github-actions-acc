@@ -1,3 +1,5 @@
+name: "Get import status"
+
 on: 
   workflow_dispatch:
   # push:

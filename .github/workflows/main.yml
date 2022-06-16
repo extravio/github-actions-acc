@@ -1,3 +1,5 @@
+name: "Import ADO repo"
+
 on: 
   workflow_dispatch:
 
