@@ -1,24 +1,24 @@
 import * as core from '@actions/core';
-import * as github from '@actions/github';
+import apiClient from './api-client.js';
 
 export default async function run() {
     try {
-        const myToken = core.getInput('repo_token');
+        const token = core.getInput('repo_token');
         // github repo
         const owner = core.getInput('owner');
         const repo = core.getInput('repo');
 
-        const octokit = github.getOctokit(myToken);
-       
-        const { data: migration } = await octokit.rest.migrations.getImportStatus({
-          owner,
-          repo
-        });
-    
-        console.log(migration);
-        const output = migration.status;
-        core.setOutput('status', output);
-        return output;
+        const  { status, data } = await apiClient.request(
+            token, 
+            'migrations', 
+            'getImportStatus', 
+            {
+              owner,
+              repo
+            }
+        );
+        core.setOutput('status', data.status);
+        return { status, data };
     }
     catch (error) {
         core.setFailed(error.message);

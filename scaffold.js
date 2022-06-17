@@ -14,7 +14,7 @@ fs.copyFile('./scaffold/src/template.js', actionFilePath, fs.constants.COPYFILE_
 
 // src/<actionName>.test.js
 const actionTestFilePath =  `./src/${actionName}.test.js`;
-fs.copyFile('./scaffold/src/template.test.js', actionTestFilePath, fs.constants.COPYFILE_EXCL, (err) => {
+fs.copyFile('./scaffold/src/template.test.tpl', actionTestFilePath, fs.constants.COPYFILE_EXCL, (err) => {
     if (err) throw err;
     console.log(`File created: ${actionTestFilePath}`);
 

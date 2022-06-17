@@ -1,6 +1,6 @@
 process.env.INPUT_REPO_TOKEN = 'token'
 process.env.INPUT_OWNER = 'owner'
 process.env.INPUT_REPO = 'repo'
-process.env.INPUT_ADO_REPO_NAME = 'https://ado-repo'
+process.env.INPUT_ADO_REPO = 'https://ado-repo'
 process.env.INPUT_ADO_USER = 'user'
 process.env.INPUT_ADO_PAT = 'pat'

@@ -25,4 +25,4 @@ outputs:
     description: 'The status of the migration'
 runs:
   using: 'node16'
-  main: 'dist/index.js'
+  main: '../dist/repos-import/index.js'

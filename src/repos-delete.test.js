@@ -1,6 +1,5 @@
 import nock from 'nock';
 import action from './repos-delete';
-import { ImportSourceComplete } from '../fixtures/import-source';
 
 beforeEach(() => {
   nock('https://api.github.com')
@@ -17,11 +16,7 @@ describe('action test suite', () => {
 
   it('It deletes a repository', async () => {
 
-    // token is defined in "./.jest/setEnvVars.js"
-    
-    
-      const status = await action();
-
-      expect(status).toBe(204);
+    const { status, data } = await action();
+    expect(status).toBe(204);
   });
 });
