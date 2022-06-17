@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "lint": "eslint .",
+    "prepare": "npm run prepare-repos-import && npm run prepare-repos-import && npm run prepare-repos-delete && npm run prepare-repos-create",
     "prepare-repos-import": "ncc build src/repos-import -o dist/repos-import --source-map --license licenses.txt",
     "prepare-import-status": "ncc build src/get-import-status -o dist/get-import-status --source-map --license licenses.txt",
     "prepare-repos-delete": "ncc build src/repos-delete -o dist/repos-delete --source-map --license licenses.txt",

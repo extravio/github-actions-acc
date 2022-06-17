@@ -8878,39 +8878,102 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
 "use strict";
-/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
-/* harmony export */   "Z": () => (/* binding */ run)
-/* harmony export */ });
-/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(2186);
-/* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(5438);
+
+// EXPORTS
+__nccwpck_require__.d(__webpack_exports__, {
+  "Z": () => (/* binding */ run)
+});
+
+// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
+var core = __nccwpck_require__(2186);
+// EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
+var github = __nccwpck_require__(5438);
+;// CONCATENATED MODULE: ./src/api-client.js
+
+
+
+const HttpClient = {
+    // Define a common interface to handle different responses from the API
+    // response(ok, error, data = null) {
+    //   return { ok, error, data };
+    // },
+
+    /**
+     * Execute an Octokit command. Format: octokit.rest.<category>.<method>(<payload>);
+     * Example:
+     *  octokit.rest.repos.delete({
+     *     owner,
+     *     repo,
+     *  });
+     * @param  {String} token       The Github token
+     * @param  {String} category    The Github element (repos, migrations, etc.)
+     * @param  {String} method      The name of the method (delete, createUsingTemplate, etc.)
+     * @param  {Object} payload     The payload of the request
+     * @return {Object} payload     The payload of the request
+     */
+    async request(token, category, method, payload) {
+        try {
+            const octokit = github.getOctokit(token);
+                   
+            const  { status, data } = await octokit.rest[category][method](payload);
+            // console.log(status);
+            // console.log(data);
+            return { status, data };
+        }
+        catch (error) {
+            core.setFailed(error.message);
+            throw error;
+        }
+    }
+    //   try {
+    //     const response = await this.fetch(
+    //       url,
+    //       {
+    //         method: 'GET',
+    //         headers,
+    //       },
+    //     );
+    //     if (!response.ok) {
+    //       throw new Error('Network response was not ok.');
+    //     }
+    //     const data = await response.json();
+    //     return this.response(response.ok, null, data);
+    //   } catch (error) {
+    //     return this.response(false, error.message);
+    //   }
+    // },
+    // separate this function to apply caching
+    // async fetch(url, options) {
+    //   return fetch(url, options);
+    // }
+};
+  
+/* harmony default export */ const api_client = (HttpClient);
+;// CONCATENATED MODULE: ./src/repos-delete.js
 
 
 
 async function run() {
     try {
-        const myToken = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('repo_token');
+        const token = core.getInput('repo_token');
         // github repo
-        const owner = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('owner');
-        const repo = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('repo');
+        const owner = core.getInput('owner');
+        const repo = core.getInput('repo');
 
-        const octokit = _actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit(myToken);
-       
-        // const { data: migration } = await octokit.rest.repos.delete({
-        const  { status, data } = await octokit.rest.repos.delete({
-          owner,
-          repo
-        });
-    
-        console.log(status);
-        console.log(data);
-        // console.log(migration);
-        // const output = migration.status;
-        // const output = 'test';
-        _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput('status', status);
-        return status;
+        const  { status, data } = await api_client.request(
+            token, 
+            'repos', 
+            'delete', 
+            {
+              owner,
+              repo
+            }
+        );
+        core.setOutput('status', status);
+        return { status, data };
     }
     catch (error) {
-        _actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed(error.message);
+        core.setFailed(error.message);
         throw error;
     }
 }
