@@ -1,0 +1,23 @@
+name: "<name>"
+
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+      - 'develop'
+
+jobs:
+  source_migrate:
+    runs-on: ubuntu-latest
+    name:<action>
+    steps:
+      - name: <name>
+        id: <action>
+        uses: extravio/github-actions-acc/action-<action>@develop
+        with:
+          repo_token: ${{ secrets.JS_TOKEN }}
+          owner: extravio
+          repo: import-ado
+      # Use the output from the `import` step
+      - name: Get the status
+        run: echo "The reponse code is ${{ steps.<action>.outputs.status }}"
