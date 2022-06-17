@@ -8980,7 +8980,7 @@ async function run() {
           }
       );
         
-      core.setOutput('status', 'ok');
+      core.setOutput('status', data.status);
       return { status, data };
     }
     catch (error) {
