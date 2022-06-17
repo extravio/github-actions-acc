@@ -22,4 +22,4 @@ jobs:
           repo: import-ado
       # Use the output from the `import` step
       - name: Get the status
-        run: echo "The reponse code is ${{ steps.import.outputs.status }}"
+        run: echo "The reponse code is ${{ steps.create.outputs.status }}"

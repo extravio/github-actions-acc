@@ -2,9 +2,9 @@ name: "Import ADO repo"
 
 on: 
   workflow_dispatch:
-  push:
-    branches:
-      - 'develop'
+  # push:
+  #   branches:
+  #     - 'develop'
 
 # on: [push]
 
@@ -23,7 +23,7 @@ jobs:
           repo: import-ado
       # Use the output from the `import` step
       - name: Get the status
-        run: echo "The reponse code is ${{ steps.import.outputs.status }}"
+        run: echo "The reponse code is ${{ steps.create.outputs.status }}"
 
       # Import the repo from ADO
       - name: Import repo step
@@ -39,4 +39,4 @@ jobs:
           
       # Use the output from the `import` step
       - name: Get the status
-        run: echo "The status has started. The status is ${{ steps.import.outputs.status }}"
+        run: echo "The import has started. The status is ${{ steps.import.outputs.status }}"
